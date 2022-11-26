@@ -1,0 +1,30 @@
+<div class="modal-box">
+    <div class="modal-dialog">
+        <div class="dialog-box">
+            <h3>Please edit following data.</h3>
+            <form [formGroup]="memberForm" (ngSubmit)="onSubmit()">
+                <div class="form-container">
+                    <div class="form-fields">
+                        <label for="name">Name: </label>
+                        <input formControlName="name" type="text">
+                    </div>
+                    <div class="form-fields">
+                        <label for="email">Email: </label>
+                        <input formControlName="email" type="text">
+                    </div>
+                    <div class="select-container">
+                        <label for="role">Role: </label>
+                        <select formControlName="role" name="" id="">
+                            <option value="member">Member</option>
+                            <option value="admin">Admin</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="button-container">
+                    <button class="yes-btn" type="submit" [disabled]="!memberForm.valid">Submit</button>
+                    <button class="no-btn" (click)="emitCancel()">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
