@@ -5,6 +5,8 @@ import { RouterModule } from '@angular/router';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { allRoutes } from './routes';
+import { HttpClientModule } from '@angular/common/http';
+import { ReactiveFormsModule } from '@angular/forms';
 import * as fromContainers from '../app/results/containers/index';
 import * as fromComponents from '../app/results/components';
 @NgModule({
@@ -13,7 +15,13 @@ import * as fromComponents from '../app/results/components';
     fromContainers.containers,
     fromComponents.componentContainer,
   ],
-  imports: [BrowserModule, AppRoutingModule, RouterModule.forRoot(allRoutes)],
+  imports: [
+    BrowserModule,
+    HttpClientModule,
+    AppRoutingModule,
+    ReactiveFormsModule,
+    RouterModule.forRoot(allRoutes),
+  ],
   providers: [],
   bootstrap: [AppComponent],
 })
