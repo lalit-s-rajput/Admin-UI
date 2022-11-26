@@ -14,9 +14,11 @@ export class SearchBarComponent implements OnInit {
 
   changeData(data:any){
     let searchValue = data.target.value;
-    if(searchValue && searchValue.length>2){
-      this.searchKey.emit();
-    }
+      this.searchKey.emit(searchValue);
+  }
+
+  filterDataOnSearch(key:string){
+
   }
 
 }
