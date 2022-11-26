@@ -21,7 +21,7 @@
                 <th>Role</th>
                 <th>Action</th>
             </tr>
-            <tr *ngFor="let item of memberData|async">
+            <tr *ngFor="let item of _memberData|async">
                 <td><input type="checkbox" name="" id=""></td>
                 <td>{{item.name}}</td>
                 <td>{{item.email}}</td>

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { Results } from 'src/app/core/interface/results';
 import { ResultService } from '../../services/results-service.service';
 @Component({
@@ -7,15 +7,17 @@ import { ResultService } from '../../services/results-service.service';
   styleUrls: ['./table-view.component.scss']
 })
 export class TableViewComponent implements OnInit {
-  memberData:any;
+  _memberData:any;
   currentMemberData:any = null;
   currentEditMemberData:any = null;
   showModal = false;
   showEditModal = false;
+  @Input() set memberData(data:any){
+    this._memberData = data;
+  }
   constructor(private resultService:ResultService) { }
 
   ngOnInit(): void {
-    this.memberData = this.resultService.getData();
   }
 
   editRow(item:Results){
