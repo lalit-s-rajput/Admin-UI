@@ -28,42 +28,40 @@ export class PaginationComponent implements OnInit {
   }
 
   furtherNext() {
-    if (this.nextPageCount + this.noOfItems < this.noOfPages.length) {
-      this.currentEndPageIndex++;
-      this.disableFurtherNext = false;
-      this.nextPageCount++;
-      this.noOfPages = new Array(Math.ceil(this.dataLength / this.noOfItems));
-    }else{
+    this.currentEndPageIndex++;
+    if(this.currentEndPageIndex>this.noOfPages.length){
+      this.currentEndPageIndex = this.noOfPages.length-1;
       this.disableFurtherNext = true;
       this.disableNextRow = true;
     }
+    this.nextPageCount = this.currentEndPageIndex-(this.noOfItems-1);
+    this.noOfPages = new Array(Math.ceil(this.dataLength / this.noOfItems));
   }
 
   furtherBack() {
-    if(this.nextPageCount){
-      this.currentEndPageIndex--;
-      this.disableFurtherNext = false;
-      this.disableNextRow = false;
-      this.nextPageCount--;
-      this.noOfPages = new Array(Math.ceil(this.dataLength / this.noOfItems));
-    }
+    this.nextPageCount--;
+    this.disableFurtherNext = false;
+    this.disableNextRow = false;
+    this.currentEndPageIndex = this.nextPageCount+(this.noOfItems-1);
+    this.noOfPages = new Array(Math.ceil(this.dataLength / this.noOfItems));
   }
 
   moveToNextRow() {
-    if (this.rowCount < this.maxRowCount) {
-      this.rowCount++;
-      this.currentEndPageIndex +=9; 
-      this.nextPageCount += 9;
-      this.noOfPages = new Array(Math.ceil(this.dataLength / this.noOfItems));
-    }else{
-      this.nextPageCount=this.noOfPages.length-this.nextPageCount-1;
-      this.noOfPages = new Array(Math.ceil(this.dataLength / this.noOfItems));
-      this.disableNextRow = (this.currentEndPageIndex<this.noOfPages.length)?false:true;
+    this.currentEndPageIndex = this.currentEndPageIndex+(this.noOfItems-1);
+    if(this.currentEndPageIndex>this.noOfPages.length){
+      this.currentEndPageIndex = this.noOfPages.length-1;
+      this.disableNextRow = true;
+      this.disableFurtherNext = true;
     }
+    this.nextPageCount = this.currentEndPageIndex-(this.noOfItems-1);
+    this.noOfPages = new Array(Math.ceil(this.dataLength / this.noOfItems));
   }
-
+  // work in progress - make it as next to row
   backToPreviousRow() {
-    this.nextPageCount -= 9;
+    this.nextPageCount = this.currentEndPageIndex-(this.noOfItems-1);;
+    this.disableFurtherNext = false;
+    this.disableNextRow = false;
+    this.currentEndPageIndex = this.currentEndPageIndex-(this.noOfItems-1);
     this.noOfPages = new Array(Math.ceil(this.dataLength / this.noOfItems));
   }
 
