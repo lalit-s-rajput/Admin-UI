@@ -11,6 +11,7 @@ export class ResultsContainerComponent implements OnInit {
   constructor(private resultService:ResultService) { }
 
   ngOnInit(): void {
+    // change here
     this.memberData = this.resultService.getData();
   }
   searchData(data:string){
