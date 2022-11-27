@@ -23,18 +23,18 @@ export class PaginationComponent implements OnInit {
       this.itemsToBeShown = new Array(10);
       this.noOfPages = new Array(Math.ceil(this.dataLength / this.noOfItems)); // 10 = 100/10
       this.maxRowCount = Math.floor(this.noOfPages.length / this.noOfItems);
-      this.currentEndPageIndex = this.noOfItems-1;
+      this.currentEndPageIndex = this.noOfItems - 1;
     }
   }
 
   furtherNext() {
     this.currentEndPageIndex++;
-    if(this.currentEndPageIndex>this.noOfPages.length){
-      this.currentEndPageIndex = this.noOfPages.length-1;
+    if (this.currentEndPageIndex > this.noOfPages.length) {
+      this.currentEndPageIndex = this.noOfPages.length - 1;
       this.disableFurtherNext = true;
       this.disableNextRow = true;
     }
-    this.nextPageCount = this.currentEndPageIndex-(this.noOfItems-1);
+    this.nextPageCount = this.currentEndPageIndex - (this.noOfItems - 1);
     this.noOfPages = new Array(Math.ceil(this.dataLength / this.noOfItems));
   }
 
@@ -42,26 +42,29 @@ export class PaginationComponent implements OnInit {
     this.nextPageCount--;
     this.disableFurtherNext = false;
     this.disableNextRow = false;
-    this.currentEndPageIndex = this.nextPageCount+(this.noOfItems-1);
+    this.currentEndPageIndex = this.nextPageCount + (this.noOfItems - 1);
     this.noOfPages = new Array(Math.ceil(this.dataLength / this.noOfItems));
   }
 
   moveToNextRow() {
-    this.currentEndPageIndex = this.currentEndPageIndex+(this.noOfItems-1);
-    if(this.currentEndPageIndex>this.noOfPages.length){
-      this.currentEndPageIndex = this.noOfPages.length-1;
+    this.currentEndPageIndex = this.currentEndPageIndex + (this.noOfItems - 1);
+    if (this.currentEndPageIndex > this.noOfPages.length) {
+      this.currentEndPageIndex = this.noOfPages.length - 1;
       this.disableNextRow = true;
       this.disableFurtherNext = true;
     }
-    this.nextPageCount = this.currentEndPageIndex-(this.noOfItems-1);
+    this.nextPageCount = this.currentEndPageIndex - (this.noOfItems - 1);
     this.noOfPages = new Array(Math.ceil(this.dataLength / this.noOfItems));
   }
-  // work in progress - make it as next to row
+
   backToPreviousRow() {
-    this.nextPageCount = this.currentEndPageIndex-(this.noOfItems-1);;
+    this.nextPageCount = this.nextPageCount - (this.noOfItems - 1);
+    if (this.nextPageCount <= 0) {
+      this.nextPageCount = 0;
+      this.currentEndPageIndex = this.nextPageCount + (this.noOfItems - 1);
+    }
     this.disableFurtherNext = false;
     this.disableNextRow = false;
-    this.currentEndPageIndex = this.currentEndPageIndex-(this.noOfItems-1);
     this.noOfPages = new Array(Math.ceil(this.dataLength / this.noOfItems));
   }
 
