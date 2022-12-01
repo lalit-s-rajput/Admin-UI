@@ -7,13 +7,17 @@ import { ResultService } from '../../services/results-service.service';
   styleUrls: ['./table-view.component.scss']
 })
 export class TableViewComponent implements OnInit {
-  _memberData:any;
+  _memberData:any = [];
+  _tableData:any = [];
   currentMemberData:any = null;
   currentEditMemberData:any = null;
   showModal = false;
   showEditModal = false;
   @Input() set memberData(data:any){
-    this._memberData = data;
+    if(data.length){
+      this._memberData = data;
+      this.setTableData(this._memberData,0);
+    }
   }
   constructor(private resultService:ResultService) { }
 
@@ -43,5 +47,9 @@ export class TableViewComponent implements OnInit {
   }
   editedData(data:any){
     console.log(data);
+  }
+  setTableData(memberData:any,page:any){
+    this._tableData = memberData.slice(page*10,(page+1)*10);
+    console.log(this._tableData);
   }
 }

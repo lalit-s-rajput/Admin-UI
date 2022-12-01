@@ -12,7 +12,9 @@ export class ResultsContainerComponent implements OnInit {
 
   ngOnInit(): void {
     // change here
-    this.memberData = this.resultService.getData();
+    this.resultService.getData().subscribe((data)=>{
+      this.memberData = data;
+    });
   }
   searchData(data:string){
     this.resultService.filterData(data.toLowerCase());

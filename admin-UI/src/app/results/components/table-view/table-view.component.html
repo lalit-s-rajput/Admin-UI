@@ -1,4 +1,4 @@
-<div class="container">
+<div *ngIf="_tableData.length" class="container">
     <div *ngIf="showModal" class="modal-box">
         <div class="modal-dialog">
             <div class="dialog-box">
@@ -21,7 +21,7 @@
                 <th>Role</th>
                 <th>Action</th>
             </tr>
-            <tr *ngFor="let item of _memberData|async">
+            <tr *ngFor="let item of _tableData">
                 <td><input type="checkbox" name="" id=""></td>
                 <td>{{item.name}}</td>
                 <td>{{item.email}}</td>
