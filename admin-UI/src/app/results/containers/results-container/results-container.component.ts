@@ -11,7 +11,10 @@ export class ResultsContainerComponent implements OnInit {
   constructor(private resultService:ResultService) { }
 
   ngOnInit(): void {
-    this.memberData = this.resultService.getData();
+    // change here
+    this.resultService.getData().subscribe((data)=>{
+      this.memberData = data;
+    });
   }
   searchData(data:string){
     this.resultService.filterData(data.toLowerCase());
