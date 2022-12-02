@@ -14,10 +14,8 @@ export class TableViewComponent implements OnInit {
   showModal = false;
   showEditModal = false;
   @Input() set memberData(data:any){
-    if(data.length){
       this._memberData = data;
       this.setTableData(this._memberData,0);
-    }
   }
   constructor(private resultService:ResultService) { }
 

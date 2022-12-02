@@ -1,4 +1,4 @@
-<div class="pagination-container">
+<div *ngIf="_dataLength" class="pagination-container">
     <div class="btn-container">
         <button [disabled]="!nextPageCount" (click)="backToPreviousRow()" class="pag-btn">
             <p class="double-arrow-btn">
