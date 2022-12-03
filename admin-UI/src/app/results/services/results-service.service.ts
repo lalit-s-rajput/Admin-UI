@@ -17,7 +17,6 @@ export class ResultService {
       this.httpClient.get<Results[]>(this.dataUrl).subscribe((data)=>{
         this.membersList.next(data);
         this.filteredList.next(data);
-        console.log(data);
       });
     }
     return this.filteredList;
@@ -31,7 +30,11 @@ export class ResultService {
   }
 
   editMember(item:Results){
-
+    let itemIndex = this.filteredList.value.findIndex((obj)=>{
+      return obj.id == item.id;
+    });
+    this.filteredList.value[itemIndex] = item;
+    this.filteredList.next(this.filteredList.value);
   }
   filterData(key:string){
     if(key.length){

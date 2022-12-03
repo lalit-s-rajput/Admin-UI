@@ -16,7 +16,6 @@ export class ResultsContainerComponent implements OnInit {
     // change here
     this.resultService.getData().subscribe((data)=>{
       this._tableData = data;
-      this.memberData = data;
       this.originalDataLength = data.length;
       this.setTableData(this._tableData,0);
     });
@@ -30,6 +29,5 @@ export class ResultsContainerComponent implements OnInit {
   }
   setTableData(wholeDataset:any,pageNumber:number){
     this.memberData = wholeDataset.slice(pageNumber*10,(pageNumber+1)*10);
-    console.log(this.memberData);
   }
 }

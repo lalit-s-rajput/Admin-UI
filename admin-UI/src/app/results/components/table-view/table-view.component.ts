@@ -4,47 +4,44 @@ import { ResultService } from '../../services/results-service.service';
 @Component({
   selector: 'app-table-view',
   templateUrl: './table-view.component.html',
-  styleUrls: ['./table-view.component.scss']
+  styleUrls: ['./table-view.component.scss'],
 })
 export class TableViewComponent implements OnInit {
-  _memberData:any = [];
-  _tableData:any = [];
-  currentMemberData:any = null;
-  currentEditMemberData:any = null;
+  _memberData: any = [];
+  _tableData: any = [];
+  currentMemberData: any = null;
+  currentEditMemberData: any = null;
   showModal = false;
   showEditModal = false;
-  @Input() set memberData(data:any){
-      if(data.length){
-        this._tableData = data;
-      }
+  @Input() set memberData(data: any) {
+    this._tableData = data;
   }
-  constructor(private resultService:ResultService) { }
+  constructor(private resultService: ResultService) {}
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
-  editRow(item:Results){
+  editRow(item: Results) {
     this.showEditModal = true;
     this.currentEditMemberData = item;
   }
-  showModalDialog(item:Results){
+  showModalDialog(item: Results) {
     this.showModal = true;
     this.currentMemberData = item;
   }
-  hideModal(){
+  hideModal() {
     this.showModal = false;
     this.currentMemberData = null;
   }
-  deleteMember(){
-    if(this.currentMemberData){
+  deleteMember() {
+    if (this.currentMemberData) {
       this.resultService.deleteMember(this.currentMemberData);
       this.hideModal();
     }
   }
-  hideEditModal(flag:boolean){
+  hideEditModal(flag: boolean) {
     this.showEditModal = false;
   }
-  editedData(data:any){
-    console.log(data);
+  editedData(data: any) {
+    this.resultService.editMember(data);
   }
 }
