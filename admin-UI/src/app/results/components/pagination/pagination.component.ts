@@ -21,10 +21,8 @@ export class PaginationComponent implements OnInit {
   pageClickRefArr: any = [];
   _dataLength = 0;
   @Input() set dataLength(data: any) {
-    if (data) {
       this._dataLength = data;
       this.setData();
-    }
   }
   @Output() pageNumber = new EventEmitter<number>();
   nextPageCount = 0;
@@ -38,7 +36,6 @@ export class PaginationComponent implements OnInit {
   ngOnInit(): void {}
 
   setData() {
-    if (this._dataLength) {
       this.noOfPages = new Array(Math.ceil(this._dataLength / this.noOfItems)); // 10 = 100/10
       this.itemsToBeShown =
         this.noOfPages.length < 10
@@ -57,9 +54,8 @@ export class PaginationComponent implements OnInit {
       }
       setTimeout(()=>{
         this.pageClickRefArr = this.pageClickDir?.toArray();
-        this.pageClickRefArr[0].nativeElement.classList.add('disable-btn');
+        this.pageClickRefArr[0]?.nativeElement?.classList.add('disable-btn');
       });
-    }
   }
 
   furtherNext() {
