@@ -6,6 +6,7 @@ import {
   ViewChildren,
   QueryList,
   ElementRef,
+  EventEmitter,
 } from '@angular/core';
 
 @Component({
@@ -25,6 +26,7 @@ export class PaginationComponent implements OnInit {
       this.setData();
     }
   }
+  @Output() pageNumber = new EventEmitter<number>();
   nextPageCount = 0;
   noOfPages: any;
   itemsToBeShown: any;
@@ -109,5 +111,6 @@ export class PaginationComponent implements OnInit {
     this.pageClickRefArr[index].nativeElement.classList.add('disable-btn');
     this.pageClickRefArr[this.lastClickedIndex].nativeElement.classList.remove('disable-btn');
     this.lastClickedIndex = index;
+    this.pageNumber.emit(this.lastClickedIndex);
   }
 }

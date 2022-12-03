@@ -14,8 +14,9 @@ export class TableViewComponent implements OnInit {
   showModal = false;
   showEditModal = false;
   @Input() set memberData(data:any){
-      this._memberData = data;
-      this.setTableData(this._memberData,0);
+      if(data.length){
+        this._tableData = data;
+      }
   }
   constructor(private resultService:ResultService) { }
 
@@ -45,9 +46,5 @@ export class TableViewComponent implements OnInit {
   }
   editedData(data:any){
     console.log(data);
-  }
-  setTableData(memberData:any,page:any){
-    this._tableData = memberData.slice(page*10,(page+1)*10);
-    console.log(this._tableData);
   }
 }
