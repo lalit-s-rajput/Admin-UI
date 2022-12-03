@@ -9,11 +9,13 @@ import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import * as fromContainers from '../app/results/containers/index';
 import * as fromComponents from '../app/results/components';
+import { PageclickDirective } from './shared/directives/pageclick.directive';
 @NgModule({
   declarations: [
     AppComponent,
     fromContainers.containers,
     fromComponents.componentContainer,
+    PageclickDirective,
   ],
   imports: [
     BrowserModule,

@@ -1,4 +1,4 @@
-<div class="pagination-container">
+<div *ngIf="_dataLength" class="pagination-container">
     <div class="btn-container">
         <button [disabled]="!nextPageCount" (click)="backToPreviousRow()" class="pag-btn">
             <p class="double-arrow-btn">
@@ -15,7 +15,7 @@
         </button>
     </div>
     <div class="btn-container" *ngFor="let item of itemsToBeShown;let i = index">
-        <button (click)="pageClick(i)" class="pag-btn">
+        <button #pageClickRef (click)="pageClick(i)" class="pag-btn">
             <p>
                 {{i+nextPageCount}}
             </p>

@@ -35,4 +35,12 @@
     display: flex;
     flex-direction: row;
   }
+  .disable-btn{
+    p{
+      color: #2192ff;
+    }
+    background-color: white;
+    cursor: not-allowed;
+    border: 1px solid #2192ff;
+  }
 }

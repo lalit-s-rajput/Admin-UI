@@ -1,4 +1,13 @@
-import { Component, OnInit, Input, Output } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  Input,
+  Output,
+  ViewChildren,
+  QueryList,
+  ElementRef,
+  EventEmitter,
+} from '@angular/core';
 
 @Component({
   selector: 'app-pagination',
@@ -7,35 +16,62 @@ import { Component, OnInit, Input, Output } from '@angular/core';
 })
 export class PaginationComponent implements OnInit {
   @Input() noOfItems = 10;
-  @Input() dataLength = 0;
+  lastClickedIndex = 0;
+  @ViewChildren('pageClickRef') pageClickDir: QueryList<ElementRef> | undefined;
+  pageClickRefArr: any = [];
+  _dataLength = 0;
+  @Input() set dataLength(data: any) {
+    if (data) {
+      this._dataLength = data;
+      this.setData();
+    }
+  }
+  @Output() pageNumber = new EventEmitter<number>();
   nextPageCount = 0;
   noOfPages: any;
-  maxRowCount = 1;
-  rowCount = 1;
   itemsToBeShown: any;
   disableFurtherNext = false;
   disableNextRow = false;
   currentEndPageIndex = 0;
   constructor() {}
 
-  ngOnInit(): void {
-    if (this.dataLength) {
-      this.itemsToBeShown = new Array(10);
-      this.noOfPages = new Array(Math.ceil(this.dataLength / this.noOfItems)); // 10 = 100/10
-      this.maxRowCount = Math.floor(this.noOfPages.length / this.noOfItems);
-      this.currentEndPageIndex = this.noOfItems - 1;
+  ngOnInit(): void {}
+
+  setData() {
+    if (this._dataLength) {
+      this.noOfPages = new Array(Math.ceil(this._dataLength / this.noOfItems)); // 10 = 100/10
+      this.itemsToBeShown =
+        this.noOfPages.length < 10
+          ? new Array(this.noOfPages.length)
+          : new Array(10);
+      this.currentEndPageIndex =
+        this.noOfPages.length < 10
+          ? this.noOfPages.length - 1
+          : this.itemsToBeShown.length - 1;
+
+      if (this.currentEndPageIndex >= this.noOfPages.length - 1) {
+        this.currentEndPageIndex = this.noOfPages.length - 1;
+        this.disableFurtherNext = true;
+        this.disableNextRow = true;
+        // return;
+      }
+      setTimeout(()=>{
+        this.pageClickRefArr = this.pageClickDir?.toArray();
+        this.pageClickRefArr[0].nativeElement.classList.add('disable-btn');
+      });
     }
   }
 
   furtherNext() {
     this.currentEndPageIndex++;
-    if (this.currentEndPageIndex > this.noOfPages.length) {
+    if (this.currentEndPageIndex >= this.noOfPages.length) {
       this.currentEndPageIndex = this.noOfPages.length - 1;
       this.disableFurtherNext = true;
       this.disableNextRow = true;
+      return;
     }
     this.nextPageCount = this.currentEndPageIndex - (this.noOfItems - 1);
-    this.noOfPages = new Array(Math.ceil(this.dataLength / this.noOfItems));
+    this.noOfPages = new Array(Math.ceil(this._dataLength / this.noOfItems));
   }
 
   furtherBack() {
@@ -43,7 +79,7 @@ export class PaginationComponent implements OnInit {
     this.disableFurtherNext = false;
     this.disableNextRow = false;
     this.currentEndPageIndex = this.nextPageCount + (this.noOfItems - 1);
-    this.noOfPages = new Array(Math.ceil(this.dataLength / this.noOfItems));
+    this.noOfPages = new Array(Math.ceil(this._dataLength / this.noOfItems));
   }
 
   moveToNextRow() {
@@ -54,7 +90,7 @@ export class PaginationComponent implements OnInit {
       this.disableFurtherNext = true;
     }
     this.nextPageCount = this.currentEndPageIndex - (this.noOfItems - 1);
-    this.noOfPages = new Array(Math.ceil(this.dataLength / this.noOfItems));
+    this.noOfPages = new Array(Math.ceil(this._dataLength / this.noOfItems));
   }
 
   backToPreviousRow() {
@@ -65,10 +101,16 @@ export class PaginationComponent implements OnInit {
     }
     this.disableFurtherNext = false;
     this.disableNextRow = false;
-    this.noOfPages = new Array(Math.ceil(this.dataLength / this.noOfItems));
+    this.noOfPages = new Array(Math.ceil(this._dataLength / this.noOfItems));
   }
 
   pageClick(index: any) {
-    console.log(index);
+    if (!this.pageClickRefArr.length) {
+      this.pageClickRefArr = this.pageClickDir?.toArray();
+    }
+    this.pageClickRefArr[index].nativeElement.classList.add('disable-btn');
+    this.pageClickRefArr[this.lastClickedIndex].nativeElement.classList.remove('disable-btn');
+    this.lastClickedIndex = index;
+    this.pageNumber.emit(this.lastClickedIndex);
   }
 }
