@@ -22,10 +22,13 @@ export class ResultService {
     return this.filteredList;
   }
 
-  deleteMember(item:Results){
+  deleteMember(items:string[]){
     let newMemberList = this.filteredList.value.filter((member)=>{
-      return member.id!==item.id;
+       return !items.includes(member.id);
     });
+    // let newMemberList = this.filteredList.value.filter((member)=>{
+    //   return member.id!==item.id;
+    // });
     this.filteredList.next(newMemberList);
   }
 
