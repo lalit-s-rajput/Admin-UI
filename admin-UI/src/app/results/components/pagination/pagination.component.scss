@@ -1,0 +1,46 @@
+.pagination-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    .btn-container{
+        margin: 10px;
+    }
+    .pag-btn:disabled{
+        background-color: gray;
+        cursor: not-allowed;
+    }
+  .pag-btn {
+    border-radius: 50%;
+    text-align: center;
+    cursor: pointer;
+    background-color: #2192ff;
+    border-color: gray;
+    border: 0;
+    width: 30px;
+    height: 30px;
+  }
+  p {
+    padding: 0;
+    margin: 0;
+    text-align: center;
+    color: white;
+  }
+  i{
+    padding: 0;
+    margin: 0;
+    text-align: center;
+    color: white;
+  }
+  .double-arrow-btn{
+    display: flex;
+    flex-direction: row;
+  }
+  .disable-btn{
+    p{
+      color: #2192ff;
+    }
+    background-color: white;
+    cursor: not-allowed;
+    border: 1px solid #2192ff;
+  }
+}

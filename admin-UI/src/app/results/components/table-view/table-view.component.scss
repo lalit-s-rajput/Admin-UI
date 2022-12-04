@@ -1,0 +1,99 @@
+.container{
+    width: 100%;
+    table{
+        width: 100%;
+        border-collapse: collapse;
+    }
+    tr{
+        width: 100%;
+        border-bottom: 1px solid gray;
+    }
+    th{
+        width: 20%;
+        padding: 15px;
+        text-align: left;
+    }
+    td{
+        width: 20%;
+        padding: 15px;
+        text-align: left;
+    }
+    .edit-icon i{
+        margin-right: 10px;
+        cursor: pointer;
+    }
+    .delete-icon i{
+        color: red;
+        cursor: pointer;
+    }
+    .modal-box{
+        position: fixed;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0,0,0,0.4);
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        margin: auto;
+    }
+    .modal-dialog{
+        display: flex;
+        flex-direction: column;
+        border: 1px solid gray;
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        margin: auto;
+        width: 300px;
+        height: 200px;
+        text-align: center;
+        border-radius: 10px;
+        box-shadow: 0px 5px 5px 5px grey;
+        background-color: white;
+    }
+    .dialog-box{
+        height: 70%;
+        border-bottom: 1px solid gray;
+    }
+    .button-container{
+        display: flex;
+        flex-direction: row;
+        height: 30%;
+        background-color: black;
+    }
+    .button-container button{
+        flex: 1 1 0px;
+        background: transparent;
+        border: 1px solid gray;
+        cursor: pointer;
+        outline: none;
+        border-radius: 10px;
+        margin: 10px;
+    }
+    .yes-btn{
+        color: green;
+    }
+    .no-btn{
+        color: red;
+    }
+    input[type=checkbox]{
+        height: 15px;
+        width: 15px;
+    }
+    .delete-all-btn button{
+        border-radius: 20px;
+        height: 40px;
+        width: 190px;
+        text-align: center;
+        background-color: red;
+        color: white;
+        font-weight: bold;
+        font-size: 15px;
+        border: 1px solid orangered;
+        cursor: pointer;
+        margin-top: 20px;
+    }
+}

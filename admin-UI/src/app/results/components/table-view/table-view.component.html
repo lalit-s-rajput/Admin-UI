@@ -1,0 +1,38 @@
+<div *ngIf="_tableData.length" class="container">
+    <div *ngIf="showModal" class="modal-box">
+        <div class="modal-dialog">
+            <div class="dialog-box">
+                <h3>Are you sure want to delete this ?</h3>
+            </div>
+            <div class="button-container">
+                <button class="yes-btn" (click)="deleteMember()">Yes</button>
+                <button class="no-btn" (click)="hideModal()">No</button>
+            </div>
+        </div>
+    </div>
+    <app-modal [modalData]="currentEditMemberData" (cancel)="hideEditModal($event)" (editedData)="editedData($event)"
+        *ngIf="showEditModal"></app-modal>
+    <table>
+        <tbody>
+            <tr>
+                <th><input #selectAllCheck type="checkbox" name="" id="" (click)="selectAll($event)"></th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Role</th>
+                <th>Action</th>
+            </tr>
+            <tr *ngFor="let item of _tableData">
+                <td><input #inputCheck type="checkbox" name="" id="" (click)="deleteSelectedRow($event,item)"></td>
+                <td>{{item.name}}</td>
+                <td>{{item.email}}</td>
+                <td>{{item.role}}</td>
+                <th><span class="edit-icon"><i class="fa fa-pencil-square-o" aria-hidden="true"
+                            (click)="editRow(item)"></i></span><span class="delete-icon"><i class="fa fa-trash"
+                            aria-hidden="true" (click)="showModalDialog(item)"></i></span></th>
+            </tr>
+        </tbody>
+    </table>
+    <div class="delete-all-btn" (click)="deleteSelected()">
+        <button>Delete Selected</button>
+    </div>
+</div>
