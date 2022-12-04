@@ -6,10 +6,8 @@
     }
     tr{
         width: 100%;
+        border-bottom: 1px solid gray;
     }
-    tr:nth-child(even) {
-        background-color: #dddddd;
-      }
     th{
         width: 20%;
         padding: 15px;
@@ -80,5 +78,22 @@
     }
     .no-btn{
         color: red;
+    }
+    input[type=checkbox]{
+        height: 15px;
+        width: 15px;
+    }
+    .delete-all-btn button{
+        border-radius: 20px;
+        height: 40px;
+        width: 190px;
+        text-align: center;
+        background-color: red;
+        color: white;
+        font-weight: bold;
+        font-size: 15px;
+        border: 1px solid orangered;
+        cursor: pointer;
+        margin-top: 20px;
     }
 }

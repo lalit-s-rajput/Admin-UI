@@ -15,14 +15,14 @@
     <table>
         <tbody>
             <tr>
-                <th></th>
+                <th><input #selectAllCheck type="checkbox" name="" id="" (click)="selectAll($event)"></th>
                 <th>Name</th>
                 <th>Email</th>
                 <th>Role</th>
                 <th>Action</th>
             </tr>
             <tr *ngFor="let item of _tableData">
-                <td><input type="checkbox" name="" id=""></td>
+                <td><input #inputCheck type="checkbox" name="" id="" (click)="deleteSelectedRow($event,item)"></td>
                 <td>{{item.name}}</td>
                 <td>{{item.email}}</td>
                 <td>{{item.role}}</td>
@@ -32,4 +32,7 @@
             </tr>
         </tbody>
     </table>
+    <div class="delete-all-btn" (click)="deleteSelected()">
+        <button>Delete Selected</button>
+    </div>
 </div>
