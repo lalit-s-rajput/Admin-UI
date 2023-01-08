@@ -1,9 +1,9 @@
 .container{
     display: flex;
     flex-direction: column;
-    max-width: 100%;
-    max-height: 100%;
+    min-width: fit-content;
     margin: 20px;
+    position: relative;
     box-sizing: border-box;
 }
 .no-data-container{
@@ -12,4 +12,7 @@
         margin-top: 100px;
         height: 500px;
     }
+}
+.mobile-view-container{
+    // margin: 0;
 }

@@ -1,4 +1,4 @@
-<div class="container" *ngIf="_tableData?.length; else noData">
+<div class="container" [ngClass]="isMobileScreen ? 'mobile-view-container' : ''" *ngIf="_tableData?.length; else noData">
     <div class="search-container">
         <app-search-bar (searchKey)="searchData($event)"></app-search-bar>
     </div>

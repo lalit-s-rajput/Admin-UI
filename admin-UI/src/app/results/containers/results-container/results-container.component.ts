@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { ResultService } from '../../services/results-service.service';
 
 @Component({
@@ -10,10 +10,16 @@ export class ResultsContainerComponent implements OnInit {
   memberData:any;
   _tableData:any = [];
   originalDataLength:number = 0;
+  isMobileScreen = false;
+  @HostListener('window:resize', ['$event'])
+  onResize(event: any) {
+    this.isMobileScreen = (event?.currentTarget?.outerWidth<479) ? true : false;
+  }
   constructor(private resultService:ResultService) { }
 
   ngOnInit(): void {
     // change here
+    this.isMobileScreen = window.innerWidth < 479 ? true : false;
     this.resultService.getData().subscribe((data)=>{
       this._tableData = data;
       this.originalDataLength = data.length;

@@ -8,7 +8,7 @@ import { Results } from '../../core/interface/results';
 })
 export class ResultService {
   dataUrl =
-    'https://geektrust.s3-ap-southeast-1.amazonaws.com/adminui-problem/members.json12';
+    'https://geektrust.s3-ap-southeast-1.amazonaws.com/adminui-problem/members.json';
   membersList = new BehaviorSubject<Results[]>([]);
   filteredList = new BehaviorSubject<Results[]>([]);
   constructor(private httpClient: HttpClient) {}
@@ -22,7 +22,7 @@ export class ResultService {
         },
         error: (err) => {
           console.log(err);
-          throwError(() => new Error('test'))
+          throwError(() => new Error('no error to be shown!'))
         },
       });
     }
