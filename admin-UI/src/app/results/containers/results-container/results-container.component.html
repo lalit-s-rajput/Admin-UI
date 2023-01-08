@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container" [ngClass]="isMobileScreen ? 'mobile-view-container' : ''" *ngIf="_tableData?.length; else noData">
     <div class="search-container">
         <app-search-bar (searchKey)="searchData($event)"></app-search-bar>
     </div>
@@ -9,3 +9,9 @@
         <app-pagination (pageNumber)="pageNumber($event)" [dataLength]="originalDataLength" [noOfItems]="10"></app-pagination>
     </div>
 </div>
+
+<ng-template #noData class="no-data-container">
+    <div class="no-data-container">
+        <img src="../../../../assets/SVG/original-2022966da1fc3718d3feddfdc471ae47.webp">
+    </div>
+</ng-template>
