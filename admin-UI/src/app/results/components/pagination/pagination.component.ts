@@ -7,6 +7,7 @@ import {
   QueryList,
   ElementRef,
   EventEmitter,
+  HostListener,
 } from '@angular/core';
 
 @Component({
@@ -25,6 +26,11 @@ export class PaginationComponent implements OnInit {
       this.setData();
   }
   @Output() pageNumber = new EventEmitter<number>();
+  isMobileScreen = false;
+  @HostListener('window:resize', ['$event'])
+  onResize(event: any) {
+    this.isMobileScreen = (event?.currentTarget?.outerWidth<479) ? true : false;
+  }
   nextPageCount = 0;
   noOfPages: any;
   itemsToBeShown: any;
@@ -33,7 +39,9 @@ export class PaginationComponent implements OnInit {
   currentEndPageIndex = 0;
   constructor() {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.isMobileScreen = window.innerWidth < 479 ? true : false;
+  }
 
   setData() {
       this.noOfPages = new Array(Math.ceil(this._dataLength / this.noOfItems)); // 10 = 100/10

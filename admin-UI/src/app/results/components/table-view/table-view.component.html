@@ -12,8 +12,8 @@
     </div>
     <app-modal [modalData]="currentEditMemberData" (cancel)="hideEditModal($event)" (editedData)="editedData($event)"
         *ngIf="showEditModal"></app-modal>
-    <table>
-        <tbody>
+    <table [ngClass]="isMobileScreen? 'mobile-view': ''">
+        <thead>
             <tr>
                 <th><input #selectAllCheck type="checkbox" name="" id="" (click)="selectAll($event)"></th>
                 <th>Name</th>
@@ -21,14 +21,20 @@
                 <th>Role</th>
                 <th>Action</th>
             </tr>
+        </thead>
+        <tbody>
+            <tr *ngIf="isMobileScreen">
+                <td data-label="Select All"><input #selectAllMobileCheck type="checkbox" name="" id="" (click)="selectAll($event)"></td>
+            </tr>
             <tr *ngFor="let item of _tableData">
-                <td><input #inputCheck type="checkbox" name="" id="" (click)="deleteSelectedRow($event,item)"></td>
-                <td>{{item.name}}</td>
-                <td>{{item.email}}</td>
-                <td>{{item.role}}</td>
-                <th><span class="edit-icon"><i class="fa fa-pencil-square-o" aria-hidden="true"
+                <td data-label="Select"><input #inputCheck type="checkbox" name="" id=""
+                        (click)="deleteSelectedRow($event,item)"></td>
+                <td data-label="name">{{item.name}}</td>
+                <td data-label="email">{{item.email}}</td>
+                <td data-label="role">{{item.role}}</td>
+                <td data-label="actions"><span class="edit-icon"><i class="fa fa-pencil-square-o" aria-hidden="true"
                             (click)="editRow(item)"></i></span><span class="delete-icon"><i class="fa fa-trash"
-                            aria-hidden="true" (click)="showModalDialog(item)"></i></span></th>
+                            aria-hidden="true" (click)="showModalDialog(item)"></i></span></td>
             </tr>
         </tbody>
     </table>

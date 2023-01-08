@@ -1,4 +1,4 @@
-<div class="pagination-container">
+<div class="pagination-container" [ngClass]="isMobileScreen ? 'mobile-view-container' : ''">
     <div class="btn-container">
         <button [disabled]="!nextPageCount" (click)="backToPreviousRow()" class="pag-btn">
             <p class="double-arrow-btn">
@@ -17,7 +17,7 @@
     <div class="btn-container" *ngFor="let item of itemsToBeShown;let i = index">
         <button #pageClickRef (click)="pageClick(i)" class="pag-btn">
             <p>
-                {{i+nextPageCount}}
+                {{i+1+nextPageCount}}
             </p>
         </button>
     </div>
