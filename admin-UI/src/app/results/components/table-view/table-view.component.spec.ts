@@ -6,20 +6,25 @@ import { tableData } from '../../../../assets/mockData/mockData';
 import { By } from '@angular/platform-browser';
 import { ResultService } from '../../services/results-service.service';
 import { ModalComponent } from '../../components';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 describe('TableViewComponent', () => {
   let component: TableViewComponent;
   let fixture: ComponentFixture<TableViewComponent>;
   let service: ResultService;
   let changedData: any;
+  let editedData: any;
   beforeEach(async () => {
     const resultServiceStub = jasmine.createSpyObj(ResultService, [
       'deleteMember',
+      'editMember'
     ]);
     changedData = resultServiceStub.deleteMember.and.returnValue(tableData.slice(1));
+    editedData = resultServiceStub.editMember.and.returnValue(tableData);
     await TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule],
-      declarations: [TableViewComponent],
+      imports: [HttpClientTestingModule,ReactiveFormsModule,
+        FormsModule ],
+      declarations: [TableViewComponent, ModalComponent],
       providers: [{ provide: ResultService, useValue: resultServiceStub }],
     }).compileComponents();
   });
@@ -34,6 +39,11 @@ describe('TableViewComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('resize event should called on window resize', () => {
+    spyOn(component,'onResize').and.callThrough();
+    window.dispatchEvent(new Event('resize'));
   });
 
   it('edit row should have been called on click', () => {
@@ -76,11 +86,72 @@ describe('TableViewComponent', () => {
     expect(tableData.slice(1)).toEqual(changedData());
   });
 
-  it('modal component',()=>{
+  it('edit member modal component should cancel on cancel button click',()=>{
     const editRowButton = fixture.debugElement.query(
       By.css('.fa-pencil-square-o')
     );
     editRowButton.nativeElement.click();
     fixture.detectChanges();
+    const modalComponent = fixture.debugElement.query(By.css('app-modal'));
+    modalComponent.triggerEventHandler('cancel',true);
+    fixture.detectChanges();
+  });
+
+  it('edit member modal component should cancel on cancel button click',()=>{
+    const editRowButton = fixture.debugElement.query(
+      By.css('.fa-pencil-square-o')
+    );
+    editRowButton.nativeElement.click();
+    fixture.detectChanges();
+    const modalComponent = fixture.debugElement.query(By.css('app-modal'));
+    modalComponent.triggerEventHandler('cancel',true);
+    fixture.detectChanges();
+    let isModalVisible = fixture.debugElement.query(By.css('app-modal'))?fixture.debugElement.query(By.css('app-modal')):null;
+    expect(isModalVisible).toEqual(null); 
+  });
+
+  it('on trigger of editedData output event, component editedData method should called', () => {
+    spyOn(component, 'editedData').and.callThrough();
+    const editRowButton = fixture.debugElement.query(
+      By.css('.fa-pencil-square-o')
+    );
+    editRowButton.nativeElement.click();
+    fixture.detectChanges();
+    const modalComponent = fixture.debugElement.query(By.css('app-modal'));
+    modalComponent.triggerEventHandler('editedData',{});
+    expect(component.editedData).toHaveBeenCalled();
+  });
+
+  it('should call deleteSelectedRow function on checkbox check and uncheck', () => {
+    spyOn(component,'deleteSelectedRow').and.callThrough();
+    const checkbox = fixture.debugElement.query(By.css('.delete-selected-row'));
+    checkbox.nativeElement.click();
+    fixture.detectChanges();
+    expect(component.deleteSelectedRow).toHaveBeenCalled();
+    checkbox.nativeElement.click();
+    fixture.detectChanges();
+    expect(component.deleteSelectedRow).toHaveBeenCalled();
+  });
+
+  it('should call deleteSelectedRow function on checkbox check and uncheck', () => {
+    spyOn(component,'selectAll').and.callThrough();
+    const checkbox = fixture.debugElement.query(By.css('.select-all-check'));
+    checkbox.nativeElement.click();
+    fixture.detectChanges();
+    expect(component.selectAll).toHaveBeenCalled();
+    checkbox.nativeElement.click();
+    fixture.detectChanges();
+    expect(component.selectAll).toHaveBeenCalled();
+  });
+
+  it('should delete selected rows on button click', () => {
+    spyOn(component,'deleteSelected').and.callThrough();
+    component.isSelectAllChecked = true;
+    const checkbox = fixture.debugElement.query(By.css('.select-all-check'));
+    checkbox.nativeElement.click();
+    const button = fixture.debugElement.query(By.css('.delete-selected'));
+    button.nativeElement.click();
+    fixture.detectChanges();
+    expect(component.deleteSelected).toHaveBeenCalled();
   });
 });

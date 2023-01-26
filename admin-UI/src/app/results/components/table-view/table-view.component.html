@@ -15,7 +15,7 @@
     <table [ngClass]="isMobileScreen? 'mobile-view': ''">
         <thead>
             <tr>
-                <th><input #selectAllCheck type="checkbox" name="" id="" (click)="selectAll($event)"></th>
+                <th><input #selectAllCheck type="checkbox" name="" id="" class="select-all-check" (click)="selectAll($event)"></th>
                 <th>Name</th>
                 <th>Email</th>
                 <th>Role</th>
@@ -24,10 +24,11 @@
         </thead>
         <tbody>
             <tr *ngIf="isMobileScreen">
-                <td data-label="Select All"><input #selectAllMobileCheck type="checkbox" name="" id="" (click)="selectAll($event)"></td>
+                <td data-label="Select All"><input #selectAllMobileCheck type="checkbox" name="" id="" class="select-all-check"
+                        (click)="selectAll($event)"></td>
             </tr>
             <tr *ngFor="let item of _tableData">
-                <td data-label="Select"><input #inputCheck type="checkbox" name="" id=""
+                <td data-label="Select"><input #inputCheck type="checkbox" name="" id="" class="delete-selected-row"
                         (click)="deleteSelectedRow($event,item)"></td>
                 <td data-label="name">{{item.name}}</td>
                 <td data-label="email">{{item.email}}</td>
@@ -38,7 +39,7 @@
             </tr>
         </tbody>
     </table>
-    <div class="delete-all-btn" (click)="deleteSelected()">
-        <button>Delete Selected</button>
+    <div class="delete-all-btn">
+        <button class="delete-selected" (click)="deleteSelected()">Delete Selected</button>
     </div>
 </div>
