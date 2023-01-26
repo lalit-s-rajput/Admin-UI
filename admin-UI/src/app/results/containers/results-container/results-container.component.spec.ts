@@ -5,7 +5,7 @@ import { ResultsContainerComponent } from './results-container.component';
 import { tableData } from '../../../../assets/mockData/mockData';
 import { of } from 'rxjs';
 import { PaginationComponent, SearchBarComponent } from '../../components';
-import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { By } from '@angular/platform-browser';
 describe('ResultsContainerComponent', () => {
   let component: ResultsContainerComponent;
@@ -31,7 +31,6 @@ describe('ResultsContainerComponent', () => {
     component = fixture.componentInstance;
     service = TestBed.inject(ResultService);
     fixture.detectChanges();
-    // component.
   });
 
   it('should create', () => {
