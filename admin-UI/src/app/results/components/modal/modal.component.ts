@@ -9,8 +9,10 @@ import { Validators } from '@angular/forms';
 export class ModalComponent implements OnInit {
   _modalData:any;
   @Input() set modalData(value:any){
-    this._modalData = value;
-    this.createForm(this._modalData);
+    if(value){
+      this._modalData = value;
+      this.createForm(this._modalData);
+    }
   };
   @Output() editedData = new EventEmitter();
   @Output() cancel = new EventEmitter();

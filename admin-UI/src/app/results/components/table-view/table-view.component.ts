@@ -41,7 +41,7 @@ export class TableViewComponent implements OnInit {
     this.isMobileScreen = window.innerWidth < 479 ? true : false;
   }
 
-  isMobileScreenChanged() {}
+  // isMobileScreenChanged() {}
 
   editRow(item: Results) {
     this.showEditModal = true;
