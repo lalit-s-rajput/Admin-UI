@@ -44,6 +44,8 @@ describe('TableViewComponent', () => {
   it('resize event should called on window resize', () => {
     spyOn(component,'onResize').and.callThrough();
     window.dispatchEvent(new Event('resize'));
+    fixture.detectChanges();
+    expect(component.onResize).toHaveBeenCalled();
   });
 
   it('edit row should have been called on click', () => {
@@ -52,6 +54,7 @@ describe('TableViewComponent', () => {
       By.css('.fa-pencil-square-o')
     );
     editRowButton.nativeElement.click();
+    fixture.detectChanges();
     expect(component.editRow).toHaveBeenCalled();
   });
 
@@ -59,6 +62,7 @@ describe('TableViewComponent', () => {
     spyOn(component, 'showModalDialog').and.callThrough();
     const deleteRowButton = fixture.debugElement.query(By.css('.fa-trash'));
     deleteRowButton.nativeElement.click();
+    fixture.detectChanges();
     expect(component.showModalDialog).toHaveBeenCalled();
     expect(component.currentMemberData).toEqual(tableData[0]);
   });
@@ -84,17 +88,6 @@ describe('TableViewComponent', () => {
     deleteRow.nativeElement.click();
     fixture.detectChanges();
     expect(tableData.slice(1)).toEqual(changedData());
-  });
-
-  it('edit member modal component should cancel on cancel button click',()=>{
-    const editRowButton = fixture.debugElement.query(
-      By.css('.fa-pencil-square-o')
-    );
-    editRowButton.nativeElement.click();
-    fixture.detectChanges();
-    const modalComponent = fixture.debugElement.query(By.css('app-modal'));
-    modalComponent.triggerEventHandler('cancel',true);
-    fixture.detectChanges();
   });
 
   it('edit member modal component should cancel on cancel button click',()=>{
@@ -133,7 +126,7 @@ describe('TableViewComponent', () => {
     expect(component.deleteSelectedRow).toHaveBeenCalled();
   });
 
-  it('should call deleteSelectedRow function on checkbox check and uncheck', () => {
+  it('should call selectAll function on checkbox check and uncheck', () => {
     spyOn(component,'selectAll').and.callThrough();
     const checkbox = fixture.debugElement.query(By.css('.select-all-check'));
     checkbox.nativeElement.click();
